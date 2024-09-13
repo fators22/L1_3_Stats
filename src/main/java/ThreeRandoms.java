@@ -1,4 +1,4 @@
-public class ThreeRandoms {
+public class L1_3_Statistics {
 
 	//static helloYou
 	// take a string and print out "Hello STR"
