@@ -1,45 +1,36 @@
-import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import java.lang.reflect.Field;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class L1_3_StatsTest{
+public class  L1_3_StatsTest {
 
-	@DisplayName("helloYou passing in Blank")
-	@Test 
-	void Should_ReturnStringHelloBlank_When_GivenBlank () {
-		String expects = "Hello Blank";
-		String received = ThreeRandoms.helloYou("Blank");
-		assertEquals(expects, received);
-	}
+    @Test
+    public void testVariablesDeclared() throws NoSuchFieldException {
+        // Get the class
+        Class<?> clazz = L1_3_Statistics.class;
 
-	@DisplayName("countDogs no dogs in string") 
-	@Test 
-	void Should_ReturnZero_When_NoDogInString () {
-		int count = ThreeRandoms.countDogs("cat cat catcat");
-		assertEquals(0, count);
-	}
+        // Check if the fields exist
+        boolean hasByte = false, hasShort = false, hasInt = false, hasSum = false, hasAvg = false, hasVariance = false;
 
-	@DisplayName("countDogs dog at end of string") 
-	@Test 
-	void Should_Return1_When_DogAtEndOfString () {
-		int count = ThreeRandoms.countDogs("cat cat catcatdog");
-		assertEquals(1, count);
-	}
+        for (Field field : clazz.getDeclaredFields()) {
+            String typeName = field.getType().getSimpleName();
+            String fieldName = field.getName();
 
-	@DisplayName("flipFlop both same sign")
-	@Test
-	void Should_ReturnFalse_When_BothIntsSameSign () {
-		ThreeRandoms t = new ThreeRandoms ();
-		boolean result = t.flipFlop(-9, -7);
-		assertFalse(result);
-	}
+            if (typeName.equals("byte")) hasByte = true;
+            if (typeName.equals("short")) hasShort = true;
+            if (typeName.equals("int") && fieldName.equals("sum")) hasSum = true;
+            if (typeName.equals("int")) hasInt = true;
+            if (typeName.equals("double") && fieldName.equals("average")) hasAvg = true;
+            if (typeName.equals("double") && fieldName.equals("variance")) hasVariance = true;
+        }
 
-	@DisplayName("flipFlop different signs")
-	@Test
-	void Should_ReturnTrue_When_BothIntsDiffSign () {
-		ThreeRandoms t = new ThreeRandoms ();
-		boolean result = t.flipFlop(9, -7);
-		assertTrue(result);
-	}
-
+        // Assert that the required variables are declared
+        assertTrue(hasByte, "Byte variable for grade is missing.");
+        assertTrue(hasShort, "Short variable for grade is missing.");
+        assertTrue(hasInt, "Int variable for grade is missing.");
+        assertTrue(hasSum, "Sum variable is missing.");
+        assertTrue(hasAvg, "Average variable is missing.");
+        assertTrue(hasVariance, "Variance variable is missing.");
+    }
 }
