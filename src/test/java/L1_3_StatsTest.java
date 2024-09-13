@@ -2,7 +2,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ThreeRandomsTest {
+class L1_3_StatsTest{
 
 	@DisplayName("helloYou passing in Blank")
 	@Test 
